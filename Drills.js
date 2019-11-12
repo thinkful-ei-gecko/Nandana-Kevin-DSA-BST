@@ -22,8 +22,8 @@ function main() {
   }
   // console.log(tree(bst3));
 
-  // console.log(getHeight(bst1)); // 5
-  // console.log(getHeight(bst2)); // 7
+  console.log(getHeight(bst1)); // 5
+  console.log(getHeight(bst2)); // 7
 
   let bst4 = new BST();
   let bst4Keys = [3, 5, 7, 9, 11, 13, 15, 17];
@@ -42,7 +42,7 @@ function main() {
   for (let i = 0; i < bst5Keys.length; i++) {
     bst5.insert(bst5Keys[i]);
   }
-  console.log(isBalanced(bst5));
+  // console.log(isBalanced(bst5));
 }
 main();
 
@@ -121,3 +121,44 @@ function isBalanced(bst) {
   return Math.abs(left - right) < 2;
 }
 
+// 3, 5, 4, 6, 1, 0, 2
+// 3, 1, 5, 2, 4, 6, 0
+
+// first element must match
+// lengths must match
+// all elements must match
+// do not go in order
+// left and right cannot come before root
+
+function isIdentical(arr1, arr2) {
+  let n = arr1.length;
+  if (n !== arr2.length) {
+    return false;
+  }
+
+  if(arr1[0] === arr2[0]) {
+    // 
+  }
+
+  return false;
+}
+
+function findMax(arr) {
+  let max = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  return max;
+}
+
+function findMin(arr) {
+  let min = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+  }
+  return min;
+}
