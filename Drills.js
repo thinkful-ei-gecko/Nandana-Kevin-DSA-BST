@@ -21,6 +21,9 @@ function main() {
     bst3.insert(keys[i], 2);
   }
   // console.log(tree(bst3));
+
+  // console.log(getHeight(bst1)); // 5
+  // console.log(getHeight(bst2)); // 7
 }
 main();
 
@@ -31,5 +34,22 @@ function tree(t) {
     return 0;
   }
   return tree(t.left) + t.value + tree(t.right);
+}
+
+// O(2^N)
+function getHeight(bst) {
+  if (!bst) {
+    return 0;
+  }
+
+  let left = getHeight(bst.left);
+  let right = getHeight(bst.right);
+
+  if (left > right){
+    return left + 1;
+  }
+  else {
+    return right + 1;
+  }
 }
 
