@@ -24,6 +24,25 @@ function main() {
 
   // console.log(getHeight(bst1)); // 5
   // console.log(getHeight(bst2)); // 7
+
+  let bst4 = new BST();
+  let bst4Keys = [3, 5, 7, 9, 11, 13, 15, 17];
+  for (let i = 0; i < bst4Keys.length; i++) {
+    bst4.insert(bst4Keys[i]);
+  }
+  // console.log(isBST(bst1));
+  // console.log(isBST(bst2));
+  // console.log(isBST(bst3));
+  // console.log(isBST(bst4));
+
+  // console.log(thirdLargest(bst4));
+
+  let bst5 = new BST();
+  let bst5Keys = [2, 1, 3];
+  for (let i = 0; i < bst5Keys.length; i++) {
+    bst5.insert(bst5Keys[i]);
+  }
+  console.log(isBalanced(bst5));
 }
 main();
 
@@ -45,11 +64,60 @@ function getHeight(bst) {
   let left = getHeight(bst.left);
   let right = getHeight(bst.right);
 
-  if (left > right){
+  if (left > right) {
     return left + 1;
-  }
-  else {
+  } else {
     return right + 1;
   }
+}
+
+// function isBST(tree) {
+//   if (!tree) {
+//     return { key: -99999 };
+//   }
+
+//   let left = isBST(tree.left);
+//   let right = isBST(tree.right);
+
+//   return right.key > tree.key > left.key;
+// }
+
+function isBST(tree) {
+  return isBSTUtil(tree, -99999, 99999);
+}
+
+function isBSTUtil(tree, min, max) {
+  if (!tree) {
+    return true;
+  }
+
+  if (tree.key <= min || tree.key >= max) {
+    return false;
+  }
+
+  return isBSTUtil(tree.left, min, tree.right) &&
+         isBSTUtil(tree.right, tree.key, max);
+}
+
+function thirdLargest(bst) {
+  let result = [];
+  traverseInOrder(bst, result);
+  return result[result.length - 3];
+}
+
+function traverseInOrder(bst, result) {
+  bst.left && traverseInOrder(bst.left, result);
+  result.push(bst.key);
+  bst.right && traverseInOrder(bst.right, result);
+}
+
+function isBalanced(bst) {
+  let left = getHeight(bst.left);
+  let right = getHeight(bst.right);
+
+  console.log('left', left);
+  console.log('right', right);
+
+  return Math.abs(left - right) < 2;
 }
 
