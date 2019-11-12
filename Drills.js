@@ -95,8 +95,10 @@ function isBSTUtil(tree, min, max) {
     return false;
   }
 
-  return isBSTUtil(tree.left, min, tree.right) &&
-         isBSTUtil(tree.right, tree.key, max);
+  return (
+    isBSTUtil(tree.left, min, tree.right) &&
+    isBSTUtil(tree.right, tree.key, max)
+  );
 }
 
 function thirdLargest(bst) {
@@ -115,8 +117,8 @@ function isBalanced(bst) {
   let left = getHeight(bst.left);
   let right = getHeight(bst.right);
 
-  console.log('left', left);
-  console.log('right', right);
+  console.log("left", left);
+  console.log("right", right);
 
   return Math.abs(left - right) < 2;
 }
@@ -136,8 +138,8 @@ function isIdentical(arr1, arr2) {
     return false;
   }
 
-  if(arr1[0] === arr2[0]) {
-    // 
+  if (arr1[0] === arr2[0]) {
+    //
   }
 
   return false;
@@ -161,4 +163,66 @@ function findMin(arr) {
     }
   }
   return min;
+}
+
+// Alex Cumbo solution
+function isSameBST(arr1, arr2, len) {
+  // if no element in array, return true
+  if (len === 0) {
+    return true;
+  }
+
+  // if root node is different, return false
+  if (arr1[0] !== arr2[0]) {
+    return false;
+  }
+
+  // if one key return true
+  if (len === 1) {
+    return true;
+  }
+
+  // 4 Arrays of length len-1 each
+  // because maximum keys in left || right leafes can be len-1
+  let left1 = new Array(len - 1);
+  let right1 = new Array(len - 1);
+  let left2 = new Array(len - 1);
+  let right2 = new Array(len - 1);
+
+  // iterators needed:
+  let k = 0,
+    l = 0,
+    m = 0,
+    o = 0;
+
+  // iterate and divide in 2 groups
+  for (let i = 1; i < len; i++) {
+    // left leaf of arr1 contains elements less than arr1[0]
+    if (arr1[i] < arr1[0]) {
+      left1[k++] = arr1[i];
+    } else {
+      // right leaf of arr1 contains elements more than arr1[0]
+      right1[l++] = arr1[i];
+    }
+
+    // same as above on arr2
+    if (arr2[i] < arr2[0]) {
+      left2[m++] = arr2[i];
+    } else {
+      right2[o++] = arr2[i];
+    }
+  }
+
+  // return false if size of arr1 left & arr2 left is different
+  if (k != m) {
+    return false;
+  }
+
+  // return false if size of arr1 right & arr2 right not same
+  if (l != o) {
+    return false;
+  }
+
+  // traverse via recursion to check right and left leafes
+  return isSameBST(left1, left2, k) && isSameBST(right1, right2, l);
 }
